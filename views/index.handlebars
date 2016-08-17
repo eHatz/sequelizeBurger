@@ -1,0 +1,44 @@
+{{!-- Setup the index.handlebars to have the template that Handlebars can render onto.
+Create a button in index.handlebars that will submit the user input into the database. --}}
+<div>
+	<div class='col-md-12'>
+		<div id="makeBurger">
+			<form class="form-inline" method='POST' action='/create'>
+				<div class="form-group">
+					<label for="burgerName">Burger Name</label>
+					<input type="text" class="form-control" name='burger_name' id="burgerName" placeholder="Baconator">
+				</div>
+				<button type="submit" class="btn btn-default">Make-Da-Burger</button>
+			</form>
+		</div>
+	</div>
+</div>
+<div class='row'>
+
+	<div class='col-md-6'>
+		<div class="burgers">
+			<h2>Available Burgers</h2>
+			{{#each new}}
+				<div class='burgerDivs'>
+					<form method="POST" action="/devoured/{{id}}">
+						<p>{{burger_name}}</p>
+						<input type="hidden" name="id" value="{{id}}">
+						<button type='submit'>Devour</button>
+					</form>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+
+	<div class='col-md-6'>
+		<div class="burgers">
+			<h2>Devoured Burgers</h2>
+			{{#each devoured}}
+				<div class='burgerDivs'>
+					<p>{{burger_name}}</p>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+
+</div>
