@@ -6,7 +6,6 @@ var mysql = require('mysql');
 var connection = require('./config/connection.js').connection;
 
 var app = express();
-var orm = require('./config/orm.js');
 var routes = require('./controllers/burgers_controller.js');
 
 app.use(express.static(__dirname + '/public'));

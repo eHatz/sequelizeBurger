@@ -5,7 +5,7 @@ var router = express.Router();
 var models = require('../models');
 
 router.get('/', function(req, res) {
-	models.burgers.findAll({ where: {devoured: false} }).then(function(data) {
+	models.burgers.findAll().then(function(data) {
 
 		var devouredBurg = [];
 		var newBurg = [];
@@ -26,13 +26,21 @@ router.get('/', function(req, res) {
 });
 
 router.post('/create', function(req, res) {
-	burger.create(req.body.burger_name);
-	res.redirect('/');
+	models.burgers.create({
+		burger_name: req.body.burger_name
+	}).then(function() {
+		res.redirect('/');
+	})
+	
 });
 
 router.post('/devoured/:id', function(req, res){
-	burger.update(req.body.id);
-	res.redirect('/')
+	models.burgers.update( 
+		{devoured: true}, 
+		{where: {id: req.body.id}}
+	).then(function() {
+		res.redirect('/')
+	})
 });
 
 module.exports = router;
